@@ -12,6 +12,8 @@ import {
 import firebase from "../Config";
 
 const auth = firebase.auth()
+const database = firebase.database();
+const ref_database = database.ref();
 
 export default function CreateAccount(props) {
 
@@ -83,7 +85,17 @@ export default function CreateAccount(props) {
                 auth.createUserWithEmailAndPassword(email, password)
                 .then(() => {
                   alert("account created")
-                  props.navigation.navigate("Home")
+                  const userId = auth.currentUser.uid
+
+                  const ref_listusers= ref_database.child("ListUsers");
+                  const ref_user = ref_listusers.child(userId);
+
+                  ref_user.set({
+                    id:userId,
+                    connected: true
+                  });
+
+                  props.navigation.navigate("MyAccount", {userId})
                 })
                 .catch((error) => {
                   alert(error.message)

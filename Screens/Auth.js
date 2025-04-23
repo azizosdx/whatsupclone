@@ -17,8 +17,11 @@ const auth = firebase.auth()
 
 export default function Auth(props) {
 
-  const [email, setemail] = useState("aziz@gmail.com")
-  const [password, setpassword] = useState("azizaziz")
+  // const [email, setemail] = useState("aziz@gmail.com")
+  // const [password, setpassword] = useState("azizaziz")
+
+  const [email, setemail] = useState("yassine@gmail.com")
+  const [password, setpassword] = useState("yassine")
 
   return (
     <ImageBackground
@@ -72,7 +75,19 @@ export default function Auth(props) {
           onPress={()=>{
              if (email != "" && password != "") {
               auth.signInWithEmailAndPassword(email, password)
-              .then(() => { props.navigation.navigate("Home") })
+              .then(() => { 
+                const userId = auth.currentUser.uid
+
+                const ref_listusers= ref_database.child("ListUsers");
+                  const ref_user = ref_listusers.child(userId);
+
+                  ref_user.update({
+                    id:userId,
+                    connected: true
+                  });
+
+                props.navigation.navigate("Home", {userId}) 
+                })
               .catch((error) => {
                 alert(error)
               })

@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Home from "./Screens/Home";
 import CreateAccount from "./Screens/CreateAccount";
+import Chat from "./Screens/Chat";
+import MyAccount from "./Screens/Home/MyAccount";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +21,8 @@ export default function App() {
           name="CreateAccount"
           component={CreateAccount}
         ></Stack.Screen>
+        <Stack.Screen name="Chat" component={Chat}></Stack.Screen>
+        <Stack.Screen name="MyAccount" component={MyAccount}  />
       </Stack.Navigator>
     </NavigationContainer>
   );
